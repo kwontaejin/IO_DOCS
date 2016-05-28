@@ -1,0 +1,187 @@
+{
+	"name": "CommonController",
+	"version": "1.0",
+	"title": "CommonController of MAPI",
+	"description": "MAPI의 공통 Controller",
+	"protocol": "rest",
+	"basePath": "http://m.apps.ssg.com",
+	"publicPath": "/api",
+	"schemas" : {
+		"info1Param" : {
+			"type" : "object",
+			"properties": {
+				"common" : {
+					"type" : "object",
+					"properties" : {
+						"apl_ver" : {
+							"title" : "apl_ver",
+							"required" : true,
+							"type" : "string",
+							"description" : "APP 버전"
+						},
+						"os_cd" : {
+							"title" : "os_cd",
+							"required" : true,
+							"type" : "string",
+							"description" : "OS코드(10:Android, 20:IOS)"
+						},
+						"ts" : {
+							"title" : "ts(TimeStamp)",
+							"required" : true,
+							"type" : "string",
+							"description" : "TimeStamp",
+							"default" : "20160521173307"
+						},
+						"mobil_app_no" : {
+							"title" : "mobil_app_no",
+							"required" : true,
+							"type" : "string",
+							"description" : "앱번호"
+						}
+					}
+				},
+				"params" : {
+					"type" : "object",
+					"properties" : {
+						"regist" : {
+							"type" : "object",
+							"properties" : {
+								"mbr_dvic_uniq_no" : {
+									"title" : "mbr_dvic_uniq_no",
+									"required" : true,
+									"type" : "string",
+									"description" : "Unique no",
+									"default" : "be389195d852263c37771c1304c8047c9fbde1f7"
+								},
+								"dvic_mdl_nm" : {
+									"title" : "dvic_mdl_nm",
+									"required" : true,
+									"type" : "string",
+									"description" : "기기 모델명",
+									"default" : "iPhone6"
+								},
+								"os_ver" : {
+									"title" : "os_ver",
+									"required" : true,
+									"type" : "string",
+									"description" : "OS Version",
+									"default" : "9.3.2"
+								},
+								"first_yn" : {
+									"title" : "first_yn",
+									"required" : true,
+									"type" : "string",
+									"description" : "첫구동 여부",
+									"default" : "N"
+								}
+							}
+						},
+						"apiVersion" : {
+							"title" : "apiVersion",
+							"required" : true,
+							"type" : "string",
+							"descritpion" : "API Version",
+							"default" : "1.0"
+						}
+					}
+				}
+			} 
+		},
+		"info1Response" : {
+			"type" : "object",
+			"properties" : {
+				"cached" : {
+					"title" : "cached",
+					"required" : true,
+					"type" : "string",
+					"description" : "캐쉬여부" 
+				},
+				"res_code" : {
+					"title" : "res_code",
+					"required" : true,
+					"type" : "string",
+					"descritpion" : "응답코드"
+				},
+				"res_message" : {
+					"title" : "res_message",
+					"required" : true,
+					"type" : "string",
+					"description" : "응답메세지"
+				},
+				"data" : {
+					"title" : "data",
+					"type" : "object",
+					"description" : "상세 내용"
+				}
+			}
+			
+		}
+	},
+	"resources": {
+		"Info1": {
+			"methods": {
+				"PostDailyDealReview": {
+					"path": "/launch/datas/info1.ssg",
+					"httpMethod": "POST",
+					"description": "공통 정보를 읽어옴.1",
+					"request" : {
+						"$ref" : "info1Param"
+					},
+					"ExpectResponses" : [{
+						"Format" : "json",
+						"Schema" : {
+								"info1Response" : {
+									"type" : "object",
+									"properties" : {
+										"cached" : {
+											"title" : "cached",
+											"required" : true,
+											"type" : "string",
+											"description" : "캐쉬여부" 
+										},
+										"res_code" : {
+											"title" : "res_code",
+											"required" : true,
+											"type" : "string",
+											"descritpion" : "응답코드"
+										},
+										"res_message" : {
+											"title" : "res_message",
+											"required" : true,
+											"type" : "string",
+											"description" : "응답메세지"
+										},
+										"data" : {
+											"title" : "data",
+											"type" : "object",
+											"description" : "상세 내용"
+										}
+									}
+								}
+						}
+					}],
+					"parameters": {
+						"Content-Type": {
+							"type": "string",
+							"required": "true",
+							"description": "Content type of the payload",
+							"default": "application/json",
+							"location": "header"
+						},
+						"User-Agent" : {
+							"type" : "string",
+							"required" : "true",
+							"default" : "SSGAPP/17/shinsegaemall/6.1.8 (iPhone;iOS 9.3.2)",
+							"location" : "header"
+						},
+						"Cookie" : {
+							"type" : "textarea",
+							"required" : "true",
+							"location" : "header"
+						}
+					}
+				}
+			}
+		}
+	}
+}
